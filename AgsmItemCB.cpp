@@ -3115,15 +3115,10 @@ BOOL AgsmItem::CallbackRemoveItem(PVOID pData, PVOID pClass, PVOID pCustData)
 	}
 	else
 	{
-		// ��Ŷ�� �������ش�.
-		if (pThis->m_pagsmCharacter->GetCharDPNID(pcsOwner))
-		{
-			// �ƹ�Ÿ�� ��� ������ ������. 2008.03.21. steeple
-			if (pThis->m_pagpmItem->IsAvatarItem(pcsItem->m_pcsItemTemplate))
-				return pThis->SendPacketItemRemoveNear(pcsItem->m_lID, pcsOwner->m_stPos);
-			else
-				return pThis->SendPacketItemRemove(pcsItem->m_lID, pThis->m_pagsmCharacter->GetCharDPNID(pcsOwner));
-		}
+		// ���� ����(�� ����)���� ���� ��, �ش� ������ �ֺ� �÷��̾�� ���� �־�� ��.
+		// ������ owner �Ѹ��� remove packet�� ���� �ʾ�, owner�� �ƴ� Ŭ���̾�Ʈ����
+		// ������ ��� ��ȯ���� ���� ���� ������ ������ ���� �־���.
+		return pThis->SendPacketItemRemoveNear(pcsItem->m_lID, pcsItem->m_posItem);
 	}
 
 	return TRUE;
